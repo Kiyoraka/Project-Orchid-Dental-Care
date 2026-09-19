@@ -3,3 +3,5 @@
 # List of ignore files
 *.exe
 *.txt
+# Project Resources (Alice working reference - never commit)
+Project Resources

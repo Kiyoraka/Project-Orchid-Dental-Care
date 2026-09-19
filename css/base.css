@@ -1,0 +1,116 @@
+/* Orchid Dental Care — base tokens, reset and shared primitives (DESIGN-DOCUMENT §4) */
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --primary-deep: #1d4ed8;
+  --accent: #3b82f6;
+  --light: #dbeafe;
+  --light-soft: #eff6ff;
+  --white: #ffffff;
+  --bg: #f8fafc;
+  --surface-muted: #f1f5f9;
+  --text: #1f2937;
+  --text-muted: #4b5563;
+  --text-faint: #94a3b8;
+  --border: #e2e8f0;
+  --success: #10b981;
+  --success-bg: #d1fae5;
+  --success-fg: #065f46;
+  --warning: #f59e0b;
+  --warning-bg: #fef3c7;
+  --warning-fg: #92400e;
+  --danger: #ef4444;
+  --danger-bg: #fee2e2;
+  --danger-fg: #991b1b;
+
+  --gradient-deep: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  --gradient-button: linear-gradient(135deg, #2563eb, #3b82f6);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, .1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, .1);
+  --radius-card: 12px;
+  --radius: 8px;
+  --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--font); }
+body { -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-dark); }
+h1, h2, h3, h4, p { margin: 0; }
+
+input, select, textarea, button { font-family: inherit; font-size: 14px; }
+input, select, textarea {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 12px;
+  background: var(--white);
+  color: var(--text);
+  outline: none;
+  width: 100%;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--light); }
+textarea { resize: vertical; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .6; }
+table { border-collapse: collapse; width: 100%; }
+
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.fade-in { animation: fadein .25s ease; }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 0; border-radius: var(--radius); padding: 10px 16px;
+  font-weight: 600; white-space: nowrap; min-height: 40px;
+  transition: filter .15s, background .15s, box-shadow .15s;
+}
+.btn-primary { background: var(--gradient-button); color: var(--white); }
+.btn-primary:hover { filter: brightness(1.06); color: var(--white); }
+.btn-outline { background: var(--white); color: var(--primary); border: 1px solid var(--border); }
+.btn-outline:hover { background: var(--light-soft); }
+.btn-white { background: var(--white); color: var(--primary); }
+.btn-ghost-light { background: rgba(255, 255, 255, .15); color: var(--white); border: 1px solid rgba(255, 255, 255, .35); }
+.btn-ghost-light:hover { background: rgba(255, 255, 255, .25); color: var(--white); }
+.btn-success { background: var(--success); color: var(--white); }
+.btn-danger { background: var(--danger); color: var(--white); }
+.btn-sm { padding: 7px 14px; font-size: 13px; min-height: 34px; }
+.btn-lg { padding: 13px 22px; font-size: 15px; }
+.btn-block { width: 100%; }
+
+.icon-btn {
+  border: 1px solid var(--border); background: var(--white); border-radius: 6px;
+  width: 32px; height: 32px; color: var(--text-muted);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.icon-btn:hover { background: var(--light); }
+
+/* ---------- badges ---------- */
+.badge {
+  display: inline-block; border-radius: 999px; padding: 3px 10px;
+  font-size: 11px; font-weight: 700; white-space: nowrap; letter-spacing: .01em;
+}
+
+/* ---------- surfaces ---------- */
+.card { background: var(--white); border-radius: var(--radius-card); box-shadow: var(--shadow); }
+.card-pad { padding: 18px; }
+.muted { color: var(--text-muted); }
+.text-sm { font-size: 13px; }
+.text-xs { font-size: 12px; }
+.bold { font-weight: 700; }
+
+/* ---------- toast ---------- */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--text); color: var(--white); border-radius: var(--radius);
+  padding: 12px 20px; font-size: 14px; box-shadow: var(--shadow-lg);
+  z-index: 100; max-width: calc(100vw - 32px); animation: fadein .2s ease;
+  display: flex; align-items: center; gap: 10px;
+}
+
+/* ---------- a11y ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
