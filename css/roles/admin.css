@@ -1,0 +1,65 @@
+/* Orchid Dental Care — ADMIN screens: Setting tabs (payment methods, operating hours, WhatsApp API, receipt split).
+ * Prototype lines 787-828. Generic settings/field classes live in css/dashboard.css.
+ */
+
+/* ---------- small helper text ---------- */
+.admin-note { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.admin-note-md { font-size: 13px; }
+
+/* ---------- Active / Inactive (and On / Off) toggle ---------- */
+.admin-toggle {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px;
+  min-height: 40px;
+  background: #f1f5f9;
+  color: #4b5563;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+}
+.admin-toggle.is-on { background: #d1fae5; color: #065f46; }
+.admin-toggle:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ---------- Payment methods ---------- */
+.admin-pm-list { display: flex; flex-direction: column; gap: 8px; }
+.admin-pm-row { display: grid; grid-template-columns: minmax(0, 1fr) 120px 90px; gap: 10px; align-items: center; font-size: 14px; }
+.admin-pm-row input:disabled { background: var(--bg); color: var(--text); }
+.admin-pm-fee { position: relative; min-width: 0; }
+.admin-pm-fee input { text-align: right; padding-right: 28px; }
+.admin-pm-fee span { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+
+/* ---------- Receipt fee-split toggle ---------- */
+.admin-split {
+  display: flex; gap: 14px; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--border); padding-top: 14px; margin-top: 4px;
+}
+.admin-split-text { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.admin-split-label { font-size: 14px; font-weight: 600; }
+.admin-split .admin-toggle { min-width: 90px; flex-shrink: 0; }
+
+/* ---------- Operating hours ---------- */
+.admin-hours { display: flex; flex-direction: column; gap: 10px; }
+.admin-hours-row { display: grid; grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1fr); gap: 10px; align-items: center; font-size: 14px; }
+.admin-hours-day { font-weight: 600; }
+
+/* ---------- WhatsApp API ---------- */
+.admin-pill {
+  background: #fef3c7; color: #92400e; border-radius: 6px; padding: 2px 8px;
+  font-size: 11px; font-weight: 700; margin-left: 6px; vertical-align: middle;
+}
+.admin-status { display: flex; gap: 8px; align-items: center; font-size: 14px; }
+.admin-dot { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; display: inline-block; flex-shrink: 0; }
+
+/* ---------- mobile (< 900px): keep grids inside 375px ---------- */
+@media (max-width: 899px) {
+  .admin-pm-row { grid-template-columns: minmax(0, 1fr) 96px 80px; gap: 8px; }
+  .admin-hours-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .admin-hours-day { grid-column: 1 / -1; }
+}
+@media (max-width: 420px) {
+  .admin-pm-row { grid-template-columns: minmax(0, 1fr) 84px; }
+  .admin-pm-row > input:disabled { grid-column: 1 / -1; }
+  .admin-pm-fee { grid-column: 1; }
+  .admin-split { flex-direction: column; align-items: stretch; }
+}
