@@ -1,0 +1,5 @@
+/* Orchid Dental Care — patient dashboard styles.
+ * The patient screens (main, appointments, history, receipts, setting) are built entirely from the
+ * shared shell components (KPIs, widgets, tabs, toolbar, tables, SettingKit) styled in css/dashboard.css,
+ * so no patient-specific rules are needed.
+ */
