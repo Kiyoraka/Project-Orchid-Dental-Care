@@ -1,0 +1,127 @@
+/* Orchid Dental Care — Dentist dashboard: treatment record screen (prototype lines 596-674). */
+
+/* ---------- empty state ---------- */
+.dent-empty {
+  padding: 40px; text-align: center; color: var(--text-muted);
+  display: flex; flex-direction: column; gap: 10px; align-items: center;
+}
+.dent-empty > i { font-size: 32px; color: var(--primary); }
+.dent-empty-title { font-weight: 700; color: var(--text); font-size: 16px; }
+.dent-empty-text { font-size: 14px; }
+
+/* ---------- record card + patient header ---------- */
+.dent-record { overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.dent-head {
+  padding: 16px 22px; border-bottom: 1px solid var(--border);
+  display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+}
+.dent-avatar { width: 44px; height: 44px; background: var(--light); color: var(--primary); font-size: 15px; }
+.dent-patient { flex: 1; min-width: 200px; }
+.dent-patient-name { font-weight: 700; font-size: 18px; }
+.dent-patient-meta { color: var(--text-muted); font-weight: 500; font-size: 14px; }
+.dent-allergy {
+  display: inline-flex; gap: 6px; align-items: center; margin-top: 6px;
+  background: #fee2e2; color: #b91c1c; border-radius: 6px; padding: 3px 10px;
+  font-size: 12px; font-weight: 700;
+}
+
+/* ---------- record tabs (pills) ---------- */
+.dent-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.dent-tab {
+  border: 0; background: transparent; color: var(--text-muted);
+  border-radius: var(--radius); padding: 8px 14px; min-height: 40px;
+  font-weight: 600; font-size: 13px; white-space: nowrap;
+}
+.dent-tab:hover { background: var(--surface-muted); }
+.dent-tab.is-active { background: var(--light); color: var(--primary-dark); }
+
+/* ---------- body sections ---------- */
+.dent-body { padding: 22px; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.dent-section { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.dent-label { font-weight: 700; font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; }
+
+/* ---------- FDI tooth chart (scrolls inside its own container on narrow screens) ---------- */
+.dent-chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+.dent-chart { display: flex; flex-direction: column; gap: 6px; min-width: 560px; }
+.dent-teeth-row { display: flex; gap: 4px; }
+.dent-tooth {
+  flex: 1; min-width: 30px; height: 38px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--white); color: var(--text);
+  font-weight: 600; font-size: 12px;
+}
+.dent-tooth:hover { border-color: var(--accent); }
+.dent-tooth.is-gap { margin-right: 14px; }
+.dent-tooth.is-selected { background: var(--primary); color: var(--white); border-color: var(--primary); }
+.dent-selected { font-size: 13px; color: var(--text-muted); }
+.dent-selected b { color: var(--primary); }
+
+/* ---------- treatments table ---------- */
+.dent-table-wrap { border: 1px solid var(--border); border-radius: var(--radius); overflow: auto; }
+.dent-table { font-size: 14px; min-width: 520px; }
+.dent-table thead tr { background: var(--bg); }
+.dent-table th { text-align: left; padding: 10px 12px; font-size: 12px; color: var(--text-muted); font-weight: 700; }
+.dent-table td { padding: 10px 12px; }
+.dent-table tbody tr { border-top: 1px solid var(--surface-muted); }
+.dent-cell-end { text-align: right; }
+.dent-remove {
+  border: 0; background: none; color: var(--danger);
+  width: 36px; height: 36px; border-radius: 6px;
+}
+.dent-remove:hover { background: var(--danger-bg); }
+.dent-add-row { background: var(--bg); }
+.dent-table tbody tr.dent-add-row { border-top: 1px solid var(--border); }
+.dent-add-row td { padding: 8px 12px; }
+.dent-add-row select { min-width: 130px; }
+.dent-add-row input:not(.dent-qty) { min-width: 160px; }
+.dent-add-tooth { color: var(--text-muted); font-size: 13px; }
+.dent-qty { width: 64px; }
+.dent-add-btn { white-space: nowrap; }
+
+/* ---------- notes / attachments / next visit ---------- */
+.dent-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.dent-field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; min-width: 0; }
+.dent-field.full { grid-column: 1 / -1; }
+.dent-dropzone {
+  border: 1px dashed #cbd5e1; background: var(--bg); border-radius: var(--radius);
+  padding: 14px; min-height: 44px; color: var(--text-muted); font-weight: 500;
+}
+.dent-dropzone:hover { border-color: var(--accent); color: var(--primary); }
+.dent-dropzone i { margin-right: 6px; }
+
+/* ---------- footer ---------- */
+.dent-footer {
+  padding: 16px 22px; border-top: 1px solid var(--border); background: var(--bg);
+  display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap;
+}
+.dent-footer .btn { padding: 11px 18px; min-height: 44px; }
+.dent-footer .btn-outline { color: var(--text); }
+.dent-complete { font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); }
+.dent-complete:hover { filter: brightness(1.06); }
+
+/* ---------- history + files tabs ---------- */
+.dent-history { gap: 10px; }
+.dent-history-item { display: flex; gap: 14px; padding: 12px; background: var(--bg); border-radius: var(--radius); font-size: 14px; }
+.dent-history-date { min-width: 100px; font-weight: 600; color: var(--primary); }
+.dent-history-sub { color: var(--text-muted); font-size: 13px; }
+.dent-files { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+.dent-file {
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 14px;
+  display: flex; flex-direction: column; gap: 8px; align-items: center;
+  font-size: 12px; color: var(--text-muted); text-align: center; min-width: 0;
+}
+.dent-file i { font-size: 28px; color: var(--primary); }
+.dent-file-name { font-weight: 600; color: var(--text); overflow-wrap: anywhere; }
+
+/* ---------- mobile ---------- */
+@media (max-width: 899px) {
+  .dent-empty { padding: 32px 20px; }
+  .dent-head, .dent-body, .dent-footer { padding-left: 16px; padding-right: 16px; }
+  .dent-patient { min-width: 0; flex-basis: calc(100% - 60px); }
+  .dent-tabs { width: 100%; }
+  .dent-tab { flex: 1; }
+  .dent-form-grid { grid-template-columns: minmax(0, 1fr); }
+  .dent-footer .btn { flex: 1 1 auto; }
+  .dent-history-item { flex-direction: column; gap: 4px; }
+  .dent-history-date { min-width: 0; }
+  .dent-files { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+}
