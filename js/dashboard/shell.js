@@ -112,7 +112,8 @@ const Shell = (() => {
     const state = Store.get();
     const { role, page } = route;
     const routeKey = role + '/' + page;
-    if (routeKey !== lastRouteKey) {
+    const routeChanged = routeKey !== lastRouteKey;
+    if (routeChanged) {
       /* page change: reset tab, close overlays, scroll to top */
       state.shell_tab = state.shell_pendingTab || 0;
       state.shell_pendingTab = 0;
@@ -160,7 +161,7 @@ const Shell = (() => {
       ${sidebarHtml(role, page, user, counts)}
       <div class="main">
         ${topbarHtml(title, user, (state.notifs && state.notifs[role]) || [], state.shell_notifOpen)}
-        <main class="content" id="content" data-route="${esc(routeKey)}">${body}</main>
+        <main class="content${routeChanged ? ' fade-in' : ''}" id="content" data-route="${esc(routeKey)}">${body}</main>
       </div>
     </div>${spec.modal || ''}`;
     UI.render(root, html);

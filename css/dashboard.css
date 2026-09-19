@@ -70,7 +70,7 @@
 .topbar-user .avatar { width: 34px; height: 34px; background: var(--light); color: var(--primary); }
 .topbar-user .fa-chevron-down { font-size: 11px; color: var(--text-muted); }
 
-.content { padding: 24px; display: flex; flex-direction: column; gap: 20px; animation: fadein .25s ease; min-width: 0; }
+.content { padding: 24px; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 
 /* ---------- KPI cards ---------- */
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
@@ -135,7 +135,7 @@
 
 /* ---------- data table ---------- */
 .table-card { overflow: hidden; }
-.table-scroll { overflow-x: auto; }
+.table-scroll { position: relative; overflow-x: auto; }
 .data-table { font-size: 14px; min-width: 640px; }
 .data-table thead tr { background: var(--bg); border-bottom: 1px solid var(--border); }
 .data-table th { text-align: left; padding: 12px 16px; font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }

@@ -31,7 +31,12 @@ const UI = (() => {
   const input = fn => `data-input="${register(fn)}"`;
   const change = fn => `data-change="${register(fn)}"`;
 
+  /* true while innerHTML is being swapped: removing a focused, edited input makes Chrome fire a
+     synchronous `change` on the detached node — handling it would re-enter render and lose focus. */
+  let rendering = false;
+
   function dispatch(attr, e) {
+    if (rendering) return;
     const el = e.target.closest(`[data-${attr}]`);
     if (!el) return;
     const fn = handlers[el.dataset[attr]];
@@ -62,13 +67,18 @@ const UI = (() => {
       key = active.dataset.key;
       try { start = active.selectionStart; end = active.selectionEnd; } catch (e) { /* not a text field */ }
     }
-    root.innerHTML = html;
-    if (key) {
-      const el = root.querySelector(`[data-key="${CSS.escape(key)}"]`);
-      if (el) {
-        el.focus({ preventScroll: true });
-        try { if (start != null) el.setSelectionRange(start, end); } catch (e) { /* number/select */ }
+    rendering = true;
+    try {
+      root.innerHTML = html;
+      if (key) {
+        const el = root.querySelector(`[data-key="${CSS.escape(key)}"]`);
+        if (el) {
+          el.focus({ preventScroll: true });
+          try { if (start != null) el.setSelectionRange(start, end); } catch (e) { /* number/select */ }
+        }
       }
+    } finally {
+      rendering = false;
     }
   }
 
