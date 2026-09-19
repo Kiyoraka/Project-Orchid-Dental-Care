@@ -1,0 +1,148 @@
+/* Orchid Dental Care — CASHIER: Bill Settlement (ported Receipt Calculator) + receipt + print.
+ * Prototype template lines 676-766. Desktop: lines left (2fr), sticky summary right. Mobile < 900px: one column.
+ */
+
+/* ---------- layout ---------- */
+.cash-settle {
+  display: grid; grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+  gap: 20px; align-items: start; min-width: 0;
+}
+.cash-side { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 80px; min-width: 0; }
+
+/* ---------- bill card ---------- */
+.cash-bill { overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.cash-head {
+  padding: 16px 22px; border-bottom: 1px solid var(--border);
+  display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-start;
+}
+.cash-head-main { flex: 1; min-width: 220px; }
+.cash-head-title { font-weight: 700; font-size: 18px; overflow-wrap: anywhere; }
+.cash-code { color: var(--text-muted); font-weight: 500; font-size: 14px; }
+.cash-head-sub { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+.cash-back { min-height: 40px; color: var(--text-muted); }
+.cash-back i { margin-right: 6px; }
+
+.cash-fields {
+  padding: 16px 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px; border-bottom: 1px solid var(--border);
+}
+.cash-field { display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 600; color: var(--text-muted); min-width: 0; }
+.cash-field input:disabled { background: var(--bg); color: var(--text-muted); opacity: 1; }
+
+.cash-block { padding: 16px 22px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid var(--border); min-width: 0; }
+.cash-block.is-last { border-bottom: 0; }
+.cash-block-title { font-weight: 700; font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; }
+.cash-block-hint { font-weight: 500; text-transform: none; letter-spacing: 0; }
+
+/* services table — scrolls inside its own container */
+.cash-table-scroll { position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.cash-table { font-size: 14px; min-width: 520px; }
+.cash-table th { color: var(--text-muted); font-size: 12px; font-weight: 600; text-align: left; padding: 6px 8px; }
+.cash-table td { padding: 8px; border-top: 1px solid var(--surface-muted); vertical-align: middle; }
+.cash-table .num { text-align: right; }
+.cash-table .muted { color: var(--text-muted); }
+.cash-pct { color: var(--text-muted); font-size: 12px; }
+.cash-add-row td { border-top: 1px solid var(--border); background: var(--bg); }
+.cash-add-row select { min-width: 170px; }
+.cash-add-btn { white-space: nowrap; min-height: 36px; }
+
+.cash-num { width: 110px; text-align: right; padding: 6px 10px; }
+
+.cash-remove {
+  border: 0; background: none; color: var(--danger, #ef4444);
+  width: 36px; height: 36px; border-radius: var(--radius); flex: 0 0 auto;
+}
+.cash-remove:hover { background: #fee2e2; }
+
+/* other charges */
+.cash-other { display: flex; gap: 8px; align-items: center; min-width: 0; }
+.cash-other-desc { flex: 1; min-width: 0; }
+.cash-num.cash-other-amt { width: 120px; flex: 0 0 auto; }
+.cash-add-charge {
+  border: 1px dashed #cbd5e1; background: var(--bg); border-radius: var(--radius);
+  padding: 10px; color: var(--primary); font-weight: 600; font-size: 13px; width: fit-content; min-height: 40px;
+}
+.cash-add-charge:hover { background: var(--light-soft); }
+
+/* payment methods */
+.cash-methods { display: flex; gap: 8px; flex-wrap: wrap; }
+.cash-method {
+  border: 2px solid var(--border); background: #fff; color: var(--text-muted);
+  border-radius: var(--radius); padding: 10px 14px; font-weight: 600; font-size: 13px;
+  min-height: 44px; display: flex; gap: 8px; align-items: center;
+}
+.cash-method:hover { border-color: #bfdbfe; }
+.cash-method.is-selected { border-color: var(--primary); background: var(--light); color: var(--primary-dark); }
+.cash-method-fee { opacity: .8; }
+
+/* ---------- final summary ---------- */
+.cash-summary { padding: 22px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+.cash-summary-title { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+.cash-line { display: flex; justify-content: space-between; gap: 12px; }
+.cash-line > span:last-child { white-space: nowrap; }
+.cash-line .muted { color: var(--text-muted); }
+.cash-line.is-sub { border-top: 1px solid var(--border); padding-top: 10px; font-weight: 600; }
+.cash-line.is-fee { color: #ef4444; }
+.cash-line.is-grand { border-top: 2px solid var(--primary); padding-top: 12px; font-weight: 700; font-size: 20px; color: var(--primary); }
+.cash-note { font-size: 12px; color: var(--text-muted); }
+.cash-settle-btn {
+  border: 0; border-radius: var(--radius); padding: 13px; color: #fff; font-weight: 700; font-size: 15px;
+  background: linear-gradient(135deg, #10b981, #059669); margin-top: 6px; min-height: 48px;
+}
+.cash-settle-btn i, .cash-settled i { margin-right: 8px; }
+.cash-settled {
+  background: #d1fae5; color: #065f46; border-radius: var(--radius); padding: 12px;
+  font-weight: 700; text-align: center; margin-top: 6px; overflow-wrap: anywhere;
+}
+.cash-summary-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.cash-summary-actions .btn { flex: 1 1 140px; font-size: 13px; min-height: 42px; color: var(--text); }
+.cash-summary-actions .cash-reset { color: var(--text-muted); }
+.cash-summary-actions .btn i { margin-right: 6px; }
+
+/* ---------- receipt ---------- */
+.cash-receipt {
+  background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 24px;
+  font-size: 13px; display: flex; flex-direction: column; gap: 8px;
+  font-family: Georgia, 'Times New Roman', serif; color: var(--text);
+}
+.rc-name { text-align: center; font-weight: 700; font-size: 16px; }
+.rc-addr { text-align: center; font-size: 11px; color: var(--text-muted); }
+.rc-rule { border-top: 1px dashed #cbd5e1; margin: 6px 0; }
+.rc-row { display: flex; justify-content: space-between; gap: 12px; }
+.rc-row > span:first-child { overflow-wrap: anywhere; }
+.rc-row > span:last-child { white-space: nowrap; text-align: right; }
+.rc-split { color: var(--text-muted); font-size: 12px; }
+.rc-total { font-weight: 700; font-size: 15px; }
+.rc-thanks { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 8px; }
+.rc-print { margin-top: 10px; font-family: inherit; }
+.rc-print i { margin-right: 6px; }
+
+/* ---------- mobile ---------- */
+@media (max-width: 899px) {
+  .cash-settle { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .cash-side { position: static; gap: 16px; }
+  .cash-head, .cash-fields, .cash-block { padding-left: 16px; padding-right: 16px; }
+  .cash-head-main { min-width: 0; flex-basis: 100%; }
+  .cash-fields { grid-template-columns: minmax(0, 1fr); }
+  .cash-num.cash-other-amt { width: 96px; }
+  .cash-method { flex: 1 1 calc(50% - 4px); justify-content: center; }
+  .cash-receipt { padding: 18px; }
+}
+
+/* ---------- print: the receipt only, black on white ---------- */
+@media print {
+  @page { margin: 12mm; }
+  html, body { background: #fff !important; }
+  .sidebar, .topbar, .drawer-overlay, .toast, #toast { display: none !important; }
+  body * { visibility: hidden; }
+  .cash-receipt, .cash-receipt * { visibility: visible; }
+  .cash-receipt {
+    position: absolute; left: 0; top: 0; width: 100%;
+    border: 0; padding: 0; color: #000 !important; background: #fff !important; box-shadow: none;
+  }
+  .cash-receipt * { color: #000 !important; background: transparent !important; }
+  .rc-rule { border-top-color: #000; }
+  .rc-print { display: none !important; }
+  .app, .main, .content { display: block !important; padding: 0 !important; background: #fff !important; }
+  .cash-side { position: static !important; }
+}
